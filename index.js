@@ -20,23 +20,48 @@ const typeDefs = gql`
 
 // Sample Book Data
 const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-  },
-];
+    {
+      title: 'Harry Potter and the Chamber of Secrets',
+      author: 'J.K. Rowling',
+    },
+    {
+      title: 'Harry Potter and the Prisoner of Azkaban',
+      author: 'J.K. Rowling',
+    },
+    {
+      title: 'Harry Potter and the Goblet of Fire',
+      author: 'J.K. Rowling',
+    },
+    {
+      title: '1984',
+      author: 'George Orwell',
+    },
+    {
+      title: 'Animal Farm',
+      author: 'George Orwell',
+    },
+    {
+      title: 'Jurassic Park',
+      author: 'Michael Crichton',
+    },
+    {
+      title: 'To Kill a Mockingbird',
+      author: 'Harper Lee',
+    },
+  ];
 
 // Resolvers
 const resolvers = {
-  Query: {
-    books: () => books,
-    hello: () => 'Hello, world!',
-  },
-};
+    Query: {
+      books: (_, { author }) => {
+        if (author) {
+          return books.filter(book => book.author === author);
+        }
+        return books;
+      },
+      hello: () => 'Hello, world!',
+    },
+  };
 
 // Initialize Apollo Server
 const server = new ApolloServer({ typeDefs, resolvers });
